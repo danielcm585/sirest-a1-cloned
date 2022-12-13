@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+
+{% endblock meta %}
+
+{% block content %}
+
+<div class="detail-container" style="min-width: 400px;">
+    <h1 class= "text-5xl font-extrabold" style="text-align: center; margin-top:30px;"> Detail Promosi</h1>
+    <div style="text-align:center;">
+        <table class="riwayat-table" style="border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 600px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;">
+        <tr style="
+        text-align: left;">
+        <th>Jenis Promosi: </th>
+        <th>Promo Hari Spesial</th>
+        </tr>
+        <tr style="
+        text-align: left;">
+            <th>Nama Promosi: </th>
+            <th> {{data.detail_promo.nama}}</th>
+        </tr>
+        <tr style="
+        text-align: left;">
+            <th>Diskon: </th>
+            <th>{{data.detail_promo.discount}}% </th>
+        </tr>
+        <tr style="
+        text-align: left;">
+            <th>Tanggal Berlangsung: </th>
+            <th>{{data.detail_promo.spesial}} </th>
+        </tr>
+        
+
+        
+    </table>   
+    </div>
+    <div style="text-align:center; margin-top:100px;">
+        <input class="btn" style="background-color:#8cbcb2; text-align:center;" type="button" value="Kembali" onclick="history.back()">
+    </div>
+</div>
+
+
+{% endblock content %}

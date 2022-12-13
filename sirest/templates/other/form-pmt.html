@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="nilai-container" style="max-width: 500px; min-height:200px;
+margin: auto;
+background-color: #fff;
+-webkit-box-shadow: 2px 2px 13px -4px rgba(0, 0, 0, 0.21);
+box-shadow: 2px 2px 13px -4px rgba(0, 0, 0, 0.21);
+text-align: center;
+resize: auto;">
+    <div class="header" style="display: flex;
+    justify-content: space-between;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
+    background: #8cbcb2">
+        <h3>FORM PROMO MINIMUM TRANSAKSI</h3>
+    </div>
+
+    <div class="form-container form-input  flex-wrap flex-row ">
+        <form method="POST" action="" id="newForm">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>Nama Promo: </td>
+                    <td><input type="text" name="namaPromo" class="form-control" id="namaPromo"></td>
+                </tr>
+                <tr>
+                    <td>Diskon: </td>
+                    <td><input type="text" name="diskon" placeholder="1 - 100%" class="form-control" id="diskon"></td>
+                </tr>
+                <tr>
+                    <td>Minimum Transaksi: </td>
+                    <td><input type="text" name="mintrans" placeholder="Integer" class="form-control" id="mintrans"></td>
+                </tr>
+            </table>
+            <div class="tombol flex-col" style="padding:20px;">
+                <input class="btn" style="background-color:#8cbcb2" type="submit" name="submit" value="Submit"/>
+                <input class="btn" style="background-color:#8cbcb2" type="button" value="Go back!" onclick="history.back()">
+            </div>
+        </form>
+        
+
+    </div>
+</div>
+
+{% endblock content%}

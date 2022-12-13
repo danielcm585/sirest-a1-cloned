@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+
+<title>PROMO</title>
+
+{% endblock meta %}
+
+{% block content %}
+
+<div class="flex justify-center items-center">
+    <div class="w-fit">
+      <h1 class="mt-60 text-center text-5xl font-extrabold">PROMO</h1>
+      <div class="mt-6 flex justify-center">
+        <table class="riwayat-table" style="border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 300px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;">
+            <tr style="background-color: #8cbcb2;
+            text-align: center;">
+            <th>Menu</th>
+            </tr>
+            {%if role == 'Admin'%}
+              <tr>
+                  <th class="flex-row"><a href="{% url 'example_app:pilih_promo' %}">Buat Promo</a></th>
+              </tr>
+              <tr>
+                  <th class="flex-row"><a href="{% url 'example_app:daftar_promo' %}">Daftar Promo</a></th>
+              </tr>
+            {%elif role == 'Restoran'%}
+              <tr>
+                  <th class="flex-row"><a href="{% url 'example_app:daftar_promo' %}">Daftar Promo</a></th>
+              </tr>
+            {%else%}
+            <tr>
+              <th class="flex-row"><a href="{% url 'example_app:daftar_promo' %}">Daftar Promo</a></th>
+            </tr>
+            {%endif%}
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content%}

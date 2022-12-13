@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+
+{% endblock meta %}
+
+{% block content %}
+
+<div class="detail-container" style="min-width: 400px;">
+    <!-- tetep gini role-nya -->
+    {%if role != 'Restoran'%}
+    <!--[Nama - Cabang Restoran] nanti harus diganti  -->
+    <h1 class= "text-5xl font-extrabold" style="text-align: center; margin-top:30px;"> Detail Restoran: [Nama - Cabang Restoran] </h1>
+    <div style="text-align:center;">
+        <table class="riwayat-table" style="border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 600px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;">
+        <tr style="
+        text-align: left;">
+        <th>Nama restoran: </th>
+        <th></th>
+        </tr>
+        <tr style="
+        text-align: left;">
+            <th>Cabang: </th>
+            <th> </th>
+        </tr>
+        <tr style="
+        text-align: left;">
+            <th>Nomor telepon: </th>
+            <th> </th>
+        </tr>
+        <tr style="
+        text-align: left;">
+            <th>Jalan: </th>
+            <th> </th>
+        </tr>
+        <tr style="
+        text-align: left;">
+            <th>Kecamatan: </th>
+            <th> </th>
+        </tr>
+        <tr style="
+        text-align: left;">
+            <th>Kota: </th>
+            <th> </th>
+        </tr>
+        <tr style="
+        text-align: left;">
+            <th>Provinsi: </th>
+            <th> </th>
+        </tr>
+        <tr style="
+        text-align: left;">
+            <th>Rating: </th>
+            <th> </th>
+        </tr>
+        <tr style="
+        text-align: left;">
+            <th>Kategori restoran: </th>
+            <th> </th>
+        </tr>
+        <tr style="
+        text-align: left;">
+            <th>Jam operasional: </th>
+            <th> 
+                <ul>
+                    <li>07:00:00</li>
+                    <li>12:00:00</li>
+                    <li>04:00:00</li>
+                </ul>
+            </th>
+            
+        </tr>
+        <tr style="
+        text-align: left;">
+            <th>Promo berlangsung: </th>
+            <th> 
+                <ul>
+                    <li>Promo Hari Besar</li>
+                    <li>Promo Tanggal Merah</li>
+                    <li>Promo Ultah</li>
+                </ul>
+            </th>
+            
+        </tr>
+        
+        </table>   
+    </div>
+
+    <div class="col-md-12 text-center">
+        <a href="{% url 'example_app:daftar_restoran_dan_makanan' %}" class="button relative px-6 py-3  duration-300 rounded-lg shadow-md text-xl text-white overflow-hidden tracking-wider" style="background-color:#8cbcb2;">
+            Kembali
+        </a>
+    </div>
+    
+    
+    {%else%}
+    <h1 class= "text-5xl font-extrabold" style="text-align: center; margin-top:30px;"> Detail Restoran</h1>
+    <div style="text-align:center;">
+        <table class="riwayat-table" style="border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 600px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;">
+        <!-- <tr style="
+        text-align: left;">
+        <th>Jenis Promosi: </th>
+        <th></th>
+        </tr>
+        <tr style="
+        text-align: left;">
+            <th>Nama Promosi: </th>
+            <th> </th>
+        </tr>
+        <tr style="
+        text-align: left;">
+            <th>Diskon: </th>
+            <th> </th>
+        </tr>
+        <tr style="
+        text-align: left;">
+            <th>Tanggal Mulai: </th>
+            <th> </th>
+        </tr>
+        <tr style="
+        text-align: left;">
+            <th>Tanggal Berakhir: </th>
+            <th> </th>
+        </tr> -->
+        
+        
+        </table>  
+
+    <!-- <a href="{% url 'example_app:daftar_restoran_dan_makanan' %}" class="button relative px-6 py-3  duration-300 rounded-lg shadow-md text-xl text-white overflow-hidden tracking-wider" style="background-color:#8cbcb2;">
+        Kembali
+    </a> -->
+    
+    </div>
+    {%endif%}
+</div>
+
+
+{% endblock content %}

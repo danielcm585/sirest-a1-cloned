@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+{% endblock meta %}
+
+{% block content %}
+<div class="flex justify-center">
+    <h1 class="text-3xl font-bold text-indigo-600">Pesanan Berlangsung</h1>
+</div>
+<div>
+<table class="md:table-fixed-11" style="border-collapse: collapse;
+margin: 25px 0;
+font-size: 0.9em;
+font-family: sans-serif;
+min-width: 600px;
+box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+text-align: center;
+margin-left: auto;
+margin-right: auto;">
+    <thead style="background: #4f46e5; color: white;">
+        <th>No</th>
+        <th>Restoran-Cabang</th>
+        <th>Nama Pelanggan</th>
+        <th>Waktu Pesanan Dibuat</th>
+        <th>Status Pesanan</th>
+        <th>Aksi</th>
+    </thead>
+    <tbody id="ongoing-order-table">
+        <!-- <tr>
+            <th>{{ongoing.id_ongoing}}</th>
+            <th>{{ongoing.nama_resto}}</th>
+            <th>{{ongoing.nama_pelanggan}}</th>
+            <th>{{ongoing.waktu_pesanan}}</th>
+            <th>{{ongoing.status_pesanan}}</th>
+            <th>
+                <button>Detail</button>
+                <button>Selesai</button>
+            </th>
+        </tr> -->
+        <!-- {% for ongoing in ongoings %}
+        <tr>
+            <th>{{ongoing.id_ongoing}}</th>
+            <th>{{ongoing.nama_resto}}</th>
+            <th>{{ongoing.nama_pelanggan}}</th>
+            <th>{{ongoing.waktu_pesanan}}</th>
+            <th>{{ongoing.status_pesanan}}</th>
+            <th>
+                <a href="/pesanan-berlangsung/kurir/detail/">Detail</a>
+                <button>Selesai</button>
+            </th>
+        </tr>
+        {% endfor %} -->
+    </tbody>
+</table>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  $(document).ready(() => {
+    var nomor = 1;
+    $.get('/api/pesanan-berlangsung/kurir/', (orders) => {
+      orders.forEach((order) => {
+        $('#ongoing-order-table').append(`
+        <tr>
+            <th>`+ nomor + `</th>
+            <th>${order.resto}</th>
+            <th>${order.pelanggan}</th>
+            <th>${order.waktuorder}</th>
+            <th>${order.status}</th>
+            <th>
+                <a id="detail-${order.emailcust}-${order.waktuorder}">Detail</a>
+                <button>Selesai</button>
+            </th>
+        </tr>
+        `)
+        // $(`detail-${order.emailcust}-${order.waktuorder}`).click(() => {
+        //   $.ajax({
+        //     url: `api/pesanan-berlangsung/kurir/detail/${order.emailcust}/${order.waktuorder}/`,
+        //     type: 'DELETE',
+        //     dataType: 'json',
+        //     success: (resp) => {
+        //       $(`#category-${category.id}`).remove()
+        //     },
+        //     error: (err) => {
+        //       alert(err)
+        //     }
+        //   })
+        // })
+      })
+    })
+  })
+</script>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+const buttons = document.querySelectorAll('button');
+buttons.forEach((btn) => {
+btn.addEventListener('click', function(e) {
+  const x = e.clientX - this.offsetLeft;
+  const y = e.clientY - this.offsetTop + window.pageYOffset;
+  const ripples = document.createElement('span');
+  ripples.className = `left-[${x}px] top-[${y}px]` + ' absolute bg-white -translate-x-1/2 -translate-y-1/2 rounded-full animate-ripple';
+  this.appendChild(ripples);
+  setTimeout(() => ripples.remove(), 500);
+})
+})
+</script>
+{% endblock content %}

@@ -1,0 +1,252 @@
+{% extends 'base.html' %} {% load static %} {% block meta %} {% endblock meta %}
+{% block content %}
+
+<div class="detail-container" style="min-width: 400px">
+  <h1
+    class="text-5xl font-extrabold"
+    style="text-align: center; margin-top: 30px"
+  >
+    Profil
+  </h1>
+  <div style="text-align: center">
+    {% if role == 'Kurir'%}
+    <table
+          class="riwayat-table"
+          style="
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            min-width: 600px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+          "
+        >
+          <tr style="text-align: left">
+            <th>Email:</th>
+            <th></th>
+          </tr>
+          <tr style="text-align: left">
+            <th>Password:</th>
+            <th></th>
+          </tr>
+          <tr style="text-align: left">
+            <th>Nama:</th>
+            <th></th>
+          </tr>
+          <tr style="text-align: left">
+            <th>Nomor HP:</th>
+            <th></th>
+          </tr>
+          <tr style="text-align: left">
+            <th>NIK:</th>
+            <th></th>
+          </tr>
+          <tr style="text-align: left">
+            <th>Nama Bank:</th>
+            <th></th>
+          </tr>
+          <tr style="text-align: left">
+            <th>Nomor rekening:</th>
+            <th></th>
+          </tr>
+          <tr style="text-align: left">
+            <th>Plat Nomor Kendaraan:</th>
+            <th></th>
+          </tr>
+          <tr style="text-align: left">
+            <th>Nomor SIM:</th>
+            <th></th>
+          </tr>
+          <tr style="text-align: left">
+            <th>Jenis Kendaraan:</th>
+            <th></th>
+          </tr>
+          <tr style="text-align: left">
+            <th>Merk Kendaraan:</th>
+            <th></th>
+          </tr>
+          <tr style="text-align: left">
+            <th>Status:</th>
+            <th></th>
+          </tr>
+          <tr style="text-align: left">
+            <th>Saldo Resto Pay:</th>
+            <th></th>
+          </tr>
+        </table>
+    {%elif role == 'Pelanggan'%}
+    <table
+    class="riwayat-table"
+    style="
+      border-collapse: collapse;
+      margin: 25px 0;
+      font-size: 0.9em;
+      font-family: sans-serif;
+      min-width: 600px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    "
+  >
+    <tr style="text-align: left">
+      <th>Email:</th>
+      <th></th>
+    </tr>
+    <tr style="text-align: left">
+      <th>Password:</th>
+      <th></th>
+    </tr>
+    <tr style="text-align: left">
+      <th>Nama:</th>
+      <th></th>
+    </tr>
+    <tr style="text-align: left">
+      <th>Nomor HP:</th>
+      <th></th>
+    </tr>
+    <tr style="text-align: left">
+      <th>NIK:</th>
+      <th></th>
+    </tr>
+    <tr style="text-align: left">
+      <th>Nama Bank:</th>
+      <th></th>
+    </tr>
+    <tr style="text-align: left">
+      <th>Nomor rekening:</th>
+      <th></th>
+    </tr>
+    <tr style="text-align: left">
+      <th>Tanggal Lahir:</th>
+      <th></th>
+    </tr>
+    <tr style="text-align: left">
+      <th>Jenis Kelamin:</th>
+      <th></th>
+    </tr>
+    <tr style="text-align: left">
+      <th>Status:</th>
+      <th></th>
+    </tr>
+    <tr style="text-align: left">
+      <th>Saldo Resto Pay:</th>
+      <th></th>
+    </tr>
+  </table>
+  {% elif role == 'Restoran'%}
+  <table
+  class="riwayat-table"
+  style="
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 600px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  "
+>
+  <tr style="text-align: left">
+    <th>Email:</th>
+    <th></th>
+  </tr>
+  <tr style="text-align: left">
+    <th>Password:</th>
+    <th></th>
+  </tr>
+  <tr style="text-align: left">
+    <th>Nama:</th>
+    <th></th>
+  </tr>
+  <tr style="text-align: left">
+    <th>Nomor HP:</th>
+    <th></th>
+  </tr>
+  <tr style="text-align: left">
+    <th>NIK:</th>
+    <th></th>
+  </tr>
+  <tr style="text-align: left">
+    <th>Nama Bank:</th>
+    <th></th>
+  </tr>
+  <tr style="text-align: left">
+    <th>Nomor rekening:</th>
+    <th></th>
+  </tr>
+  <tr style="
+  text-align: left;">
+  <th>Nama restoran: </th>
+  <th></th>
+  </tr>
+  <tr style="
+  text-align: left;">
+      <th>Cabang: </th>
+      <th> </th>
+  </tr>
+  <tr style="
+  text-align: left;">
+      <th>Nomor telepon: </th>
+      <th> </th>
+  </tr>
+  <tr style="
+  text-align: left;">
+      <th>Jalan: </th>
+      <th> </th>
+  </tr>
+  <tr style="
+  text-align: left;">
+      <th>Kecamatan: </th>
+      <th> </th>
+  </tr>
+  <tr style="
+  text-align: left;">
+      <th>Kota: </th>
+      <th> </th>
+  </tr>
+  <tr style="
+  text-align: left;">
+      <th>Provinsi: </th>
+      <th> </th>
+  </tr>
+  <tr style="
+  text-align: left;">
+      <th>Rating: </th>
+      <th> </th>
+  </tr>
+  <tr style="
+  text-align: left;">
+      <th>Kategori restoran: </th>
+      <th> </th>
+  </tr>
+  <tr style="
+  text-align: left;">
+      <th>Jam operasional: </th>
+      <th> 
+          <ul>
+              <li>07:00:00</li>
+              <li>12:00:00</li>
+              <li>04:00:00</li>
+          </ul>
+      </th>
+      
+  </tr>
+  <tr style="text-align: left">
+    <th>Status:</th>
+    <th></th>
+  </tr>
+  <tr style="text-align: left">
+    <th>Saldo Resto Pay:</th>
+    <th></th>
+  </tr>
+</table>
+{%endif%}
+</div>
+
+{% endblock content %}

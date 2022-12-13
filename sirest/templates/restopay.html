@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% load static %} {% block meta %}
+
+<title>JAM_OPERASIONAL</title>
+
+{% endblock meta %} {% block content %}
+
+<div class="flex justify-center items-center">
+  <div class="w-fit">
+    <h1 class="mt-60 text-center text-5xl font-extrabold">RESTOPAY</h1>
+    <div class="mt-2 flex justify-center">
+      <div class="tombol flex-col">
+        <h1 class="mt-20 text-center text-xl font-extrabold">Saldo :</h1>
+
+        <h1 class="mt-20 text-center text-xl font-extrabold">{{restopay}}</h1>
+
+        <a href="{% url 'sirest:isi_restopay' %}">
+          <button style="background-color: #8cbcb2">Isi Restopay</button>
+        </a>
+
+        <a href="{% url 'sirest:tarik_restopay' %}">
+          <button style="background-color: #8cbcb2">Tarik Restopay</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content%}

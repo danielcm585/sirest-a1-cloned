@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+
+{% endblock meta %}
+
+{% block content %}
+
+<div class="flex justify-center items-center">
+  <div class="w-96 mt-6 shadow-lg p-6 rounded-lg">
+    <h1 class="text-5xl font-extrabold">Login</h1>
+    <form id="login-form">
+      {% csrf_token %}
+      <p class="mt-6 text-xl">Email</p>
+      <input name="email" type="text" class="w-full rounded-lg">
+      <p class="mt-4 text-xl">Password</p>
+      <input name="password" type="password" class="w-full rounded-lg">
+      <p class="mt-4">
+        New to SIREST? 
+        <a href="/register/" class="font-bold text-indigo-500">
+          Register
+        </a>
+      </p>
+      <button type="submit" class="relative w-full mt-4 py-2 bg-indigo-500 hover:bg-indigo-600 duration-300 rounded-lg shadow-md text-xl text-white overflow-hidden tracking-wider">
+        Login
+      </button>
+    </form>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  $(document).ready(() => {
+    $('#login-form').submit((e) => {
+      e.preventDefault()
+      setTimeout(() => {
+        $.ajax({
+          url: '/api/login/',
+          type: 'POST',
+          dataType: 'json',
+          data: $('#login-form').serialize(),
+          success: (resp) => {
+            location.href = '/dashboard/'
+          },
+          error: (err) => {
+            alert(err.message)
+          }
+        })
+      }, 300)
+    })
+  })
+</script>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  const buttons = document.querySelectorAll('button');
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', function(e) {
+      const x = e.clientX - this.offsetLeft;
+      const y = e.clientY - this.offsetTop + window.pageYOffset;
+      const ripples = document.createElement('span');
+      ripples.className = `left-[${x}px] top-[${y}px]` + ' absolute bg-white -translate-x-1/2 -translate-y-1/2 rounded-full animate-ripple';
+      this.appendChild(ripples);
+      setTimeout(() => ripples.remove(), 500);
+    })
+  })
+</script>
+
+{% endblock content %}

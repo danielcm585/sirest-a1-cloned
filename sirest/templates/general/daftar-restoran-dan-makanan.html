@@ -1,0 +1,57 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+
+{% endblock meta %}
+
+{% block content %}
+
+<div class="riwayat-container" style="margin-top:100px">
+    <!-- tetep role != resto -->
+    {%if role != 'Restoran'%}
+
+    <h1 class= "text-5xl font-extrabold" style="text-align: center; margin-top:30px;"> Daftar Restoran dan Makanan </h1>
+    <table class="riwayat-table" style="border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 600px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;">
+                <tr style="background-color: #8cbcb2;
+                text-align: center;">
+                <th>No</th>
+                <th>Nama - Cabang Restoran</th>
+                <th>Rating</th>
+                <th>Aksi</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <td class="row"><a href="{% url 'example_app:detail_restoran' %}"> [Detail]<br> </a>
+                                    <a href="{% url 'example_app:menu_restoran' %}"> [Menu] </a>
+                    </td>
+                </tr>
+    </table>
+
+    {%else%}
+    <h1 class= "text-5xl font-extrabold" style="text-align: center; margin-top:30px;"> Mohon maaf, tidak dapat melihat daftar pengiriman per KM </h1>
+    
+    {%endif%}
+</div>
+
+<script>
+    function openModal(){
+        $('#modalForm').modal('show') 
+    }
+
+
+</script>
+{% endblock content %}
+

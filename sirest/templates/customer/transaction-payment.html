@@ -1,0 +1,316 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="flex justify-center">
+  <div class="w-11/12">
+    <h1 class="mb-6 text-3xl font-bold text-indigo-600">
+      Konfirmasi Pembayaran
+    </h1>
+    <div class="h-[62vh] overflow-scroll">
+      <div id="customer"">
+        
+      </div>
+      <div id="restaurant" class="mt-4">
+        
+      </div>
+      <div id="transaction-time" class="mt-4">
+        
+      </div>
+      <div id="payment" class="mt-4">
+        
+      </div>
+      <div id="transaction-status" class="mt-4">
+        
+      </div>
+      <div id="payment-status" class="mt-4">
+        
+      </div>
+      <p class="mt-4 text-xl font-semibold">
+        Menu
+      </p>
+      <ul id="menus" class="divide-y divide-solid">
+  
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="fixed bottom-0 w-full p-4">
+  <div class="flex justify-between">
+    <h1 class="text-lg">
+      Subtotal
+    </h1>
+    <h1 id="total-food" class="text-lg">
+      
+    </h1>
+  </div>
+  <div class="flex justify-between">
+    <h1 class="text-lg">
+      Ongkir
+    </h1>
+    <h1 id="total-delivery" class="text-lg">
+      
+    </h1>
+  </div>
+  <div class="flex justify-between">
+    <h1 class="text-lg">
+      Diskon
+    </h1>
+    <h1 id="total-discount" class="text-lg">
+      
+    </h1>
+  </div>
+  <div class="mt-2 mb-2 flex justify-between">
+    <h1 class="text-2xl font-bold">
+      Total
+    </h1>
+    <h1 id="total-price" class="text-2xl font-bold text-indigo-600">
+  
+    </h1>
+  </div>
+  <div id="countdown-container" class="mt-2 flex justify-center text-gray-400">
+    Pesanan dibatalkan otomatis dalam
+    <div id="countdown" class="ml-1 text-indigo-600">
+      
+    </div>
+  </div>
+  <div id="action-button">
+    <button id="next-button" class="mt-2 w-full py-3 rounded-xl text-white text-lg bg-indigo-500 hover:bg-indigo-600 duration-300">
+      Konfirmasi
+    </button>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  $(document).ready(() => {
+    const email = '{{email}}'
+    const date = '{{date}}'
+
+    const parseIdr = (amount) => {
+      return "IDR "+amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".") +",00"
+    }
+    
+    const fixStr = (str) => {
+      return str.replaceAll(/[^a-zA-Z0-9 ]/g, '').replaceAll(' ','-')
+    }
+
+    $.get(`/api/transaction/${email}/${date}/`, (transaction) => {
+      console.log(transaction)
+      const datetime = new Date(transaction.datetime)
+      let totalPrice = 0
+      $('#transaction-id').text(`#${fixStr(transaction.datetime)}`)
+      transaction.menus.forEach((menu) => {
+        const foodname = menu.foodname.replaceAll(' ','_')
+        totalPrice += menu.price * menu.amount
+        $('#menus').append(`
+          <li id="menu-${foodname}" class="p-4 hover:bg-gray-100 duration-300">
+            <div class="flex justify-between items-center">
+              <div class="flex items-center">
+                <div class="flex justify-center items-center h-[30px] w-[30px] bg-indigo-100 text-indigo-600 rounded-lg shadow-md">
+                  <p>${menu.amount}</p>
+                </div>
+                <div class="ml-4">
+                  <h1 class="text-lg font-semibold">
+                    ${menu.foodname}
+                  </h1>
+                  <h2 class="text-sm text-indigo-600">
+                    ${parseIdr(menu.price)}
+                  </h2>
+                </div>
+              </div>
+              <h1 class="text-indigo-600 font-bold">
+                ${parseIdr(menu.price*menu.amount)}
+              </h1>
+            </div>
+            ${
+              (menu.note != null && menu.note.length > 0) ? `
+                <p class="mt-4 bg-indigo-50 p-2 rounded-lg text-indigo-400">
+                  Notes: ${menu.note}
+                </p>  
+              ` : ''
+            }
+          </li>
+        `)
+      })
+      $('#total-price').text(parseIdr(transaction.totalprice))
+      $('#total-food').text(parseIdr(transaction.totalfood))
+      $('#total-discount').text(parseIdr(transaction.totaldiscount))
+      $('#total-delivery').text(parseIdr(transaction.deliveryfee))
+      $('#customer').append(`
+        <div>
+          <div class="text-lg font-semibold flex">
+            Pemesan : 
+            <p class="ml-2 text-indigo-600">
+              ${transaction.user.fname} ${transaction.user.lname}
+            </p>
+          </div>
+          <p class="text-gray-400 text-xs">
+            ${transaction.street}, ${transaction.district}, ${transaction.city}, ${transaction.province}
+          </p>
+        </div>
+      `)
+      $('#restaurant').append(`
+        <div>
+          <div class="text-lg font-semibold flex">
+            Restoran : 
+            <p class="ml-2 text-indigo-600">
+              ${transaction.restaurant.rname} ${transaction.restaurant.rbranch}
+            </p>
+          </div>
+          <p class="text-gray-400 text-xs">
+            ${transaction.restaurant.street}, ${transaction.restaurant.district}, ${transaction.restaurant.city}, ${transaction.restaurant.province}
+          </p>
+        </div>
+      `)
+      $('#transaction-time').append(`
+        <div class="text-lg font-semibold flex">
+          Waktu Pemesanan : 
+          <p class="ml-2 text-indigo-600">
+            ${new Date(transaction.datetime).toString().split('GMT')[0]}
+          </p>
+        </div>
+      `)
+      $('#transaction-status').append(`
+        <div class="text-lg font-semibold">
+          Status Pemesanan : 
+          <p class="text-indigo-600 text-lg">
+            ${transaction.transactionstatus.reverse()[0].status}
+          </p>
+        </div>
+      `)
+      $('#payment-status').append(`
+        <div class="text-lg font-semibold">
+          Status Pembayaran : 
+          <p class="text-indigo-600 text-lg">
+            ${transaction.paymentstatus}
+          </p>
+        </div>
+      `)
+      $('#payment').append(`
+        <div class="text-lg font-semibold flex">
+          Metode Pembayaran : 
+          <p class="ml-2 text-indigo-600">
+            ${transaction.paymentmethod}
+          </p>
+        </div>
+      `)
+
+      if (transaction.paymentstatus == 'Menunggu pembayaran') {
+        const curDate = new Date()
+        var countDownDate = curDate.setMinutes(curDate.getMinutes() + 1);
+        
+        x = setInterval(() => {
+          var now = new Date().getTime();
+          var distance = countDownDate - now;
+        
+          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+          $("#countdown").html(`${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`)
+        
+          if (distance < 0) {
+            clearInterval(x);
+            $('#countdown-container').html("Pesananan dibatalkan otomatis")
+            $.ajax({
+              url: `/api/transaction/${email}/${date}/`,
+              type: 'POST',
+              dataType: 'json',
+              data: {
+                paymentstatus: 'Gagal',
+                transactionstatus: 'Pesanan dibatalkan',
+              },
+              success: (resp) => {
+                // TODO: Update transaction status
+                $('#transaction-status').html(`
+                  <div class="text-lg font-semibold">
+                    Status Pemesanan : 
+                    <p class="text-indigo-600 text-lg">
+                      ${resp.transactionstatus.reverse()[0]}
+                      Pesanan Dibatalkan
+                    </p>
+                  </div>
+                `)
+                $('#payment-status').html(`
+                  <div class="text-lg font-semibold">
+                    Status Pembayaran : 
+                    <p class="text-indigo-600 text-lg">
+                      ${resp.paymentstatus}
+                    </p>
+                  </div>
+                `)
+              },
+              error: (err) => {
+                console.log(err)
+                alert(err)
+              }
+            })
+          }
+        }, 1000);
+      }
+      else {
+        $('#countdown-container').remove()
+        $('#action-button').html(`
+          <button id="done-button" class="mt-2 w-full py-3 rounded-xl text-white text-lg bg-indigo-500 hover:bg-indigo-600 duration-300">
+            Lihat Detail
+          </button>
+        `)
+        $('#done-button').click(() => {
+          location.href = `/transaction/${email}/${date}/`
+        })
+      }
+
+    })
+
+    $('#next-button').click(() => {
+      $('#countdown-container').remove()
+      $.ajax({
+        url: `/api/transaction/${email}/${date}/`,
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          paymentstatus: 'Berhasil'
+        },
+        success: (resp) => {
+          $('#payment-status').html(`
+            <div class="text-lg font-semibold">
+              Status Pembayaran : 
+              <p class="text-indigo-600 text-lg">
+                ${resp.paymentstatus}
+              </p>
+            </div>
+          `)
+          $('#action-button').html(`
+            <button id="done-button" class="mt-2 w-full py-3 rounded-xl text-white text-lg bg-indigo-500 hover:bg-indigo-600 duration-300">
+              Lihat Detail
+            </button>
+          `)
+          $('#done-button').click(() => {
+            location.href = `/transaction/${email}/${date}/`
+          })
+        },
+        error: (err) => {
+          alert(err)
+        }
+      })
+    })
+  })
+</script>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  const buttons = document.querySelectorAll('button');
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', function(e) {
+      const x = e.clientX - this.offsetLeft;
+      const y = e.clientY - this.offsetTop + window.pageYOffset;
+      const ripples = document.createElement('span');
+      ripples.className = `left-[${x}px] top-[${y}px]` + ' absolute bg-white -translate-x-1/2 -translate-y-1/2 rounded-full animate-ripple';
+      this.appendChild(ripples);
+      setTimeout(() => ripples.remove(), 500);
+    })
+  })
+</script>
+
+{% endblock content %}

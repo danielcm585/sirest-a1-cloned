@@ -1,0 +1,73 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<div class="flex justify-center">
+  <div class="w-11/12">
+    <h1 class="text-3xl font-bold text-indigo-600">Daftar Kategori Makanan</h1>
+    <div class="mt-6">
+      <ul id="food-categories" class="divide-y divide-solid"></ul>
+    </div>
+  </div>
+</div>
+<div class="fixed bottom-0 w-full p-4">
+  <button
+    onclick="setTimeout(() => location.href='/new-food-category/', 300)"
+    class="w-full bg-indigo-500 py-3 rounded-xl hover:bg-indigo-600 duration-300 text-lg text-white"
+  >
+    Tambah Kategori
+  </button>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  $(document).ready(() => {
+    $.get("/api/food-category/", (categories) => {
+      categories.forEach((category) => {
+        $("#food-categories").append(`
+          <li id="category-${category.id}" class="p-2 text-xl font-semibold">
+            <div class="flex justify-between">
+              ${category.name}
+              <button id="remove-category-${category.id}" class="flex justify-center items-center w-7 rounded-md bg-indigo-100 hover:bg-indigo-200 shadow-md duration-300">
+                <svg width="16px" height="16px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                  <path fill="#4f46e5" d="M14,3 C14.5522847,3 15,3.44771525 15,4 C15,4.55228475 14.5522847,5 14,5 L13.846,5 L13.1420511,14.1534404 C13.0618518,15.1954311 12.1930072,16 11.1479,16 L4.85206,16 C3.80698826,16 2.93809469,15.1953857 2.8579545,14.1533833 L2.154,5 L2,5 C1.44771525,5 1,4.55228475 1,4 C1,3.44771525 1.44771525,3 2,3 L5,3 L5,2 C5,0.945642739 5.81588212,0.0818352903 6.85073825,0.00548576453 L7,0 L9,0 C10.0543573,0 10.9181647,0.815882118 10.9945142,1.85073825 L11,2 L11,3 L14,3 Z M11.84,5 L4.159,5 L4.85206449,14.0000111 L11.1479,14.0000111 L11.84,5 Z M9,2 L7,2 L7,3 L9,3 L9,2 Z"/>
+                </svg>
+              </button>
+            </div>
+            <div class=></div>
+          </li>
+        `);
+        $(`#remove-category-${category.id}`).click(() => {
+          $.ajax({
+            url: `/api/food-category/${category.id}/`,
+            type: "DELETE",
+            dataType: "json",
+            success: (resp) => {
+              $(`#category-${category.id}`).remove();
+            },
+            error: (err) => {
+              alert(err);
+            },
+          });
+        });
+      });
+    });
+  });
+</script>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  const buttons = document.querySelectorAll("button");
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", function (e) {
+      const x = e.clientX - this.offsetLeft;
+      const y = e.clientY - this.offsetTop + window.pageYOffset;
+      const ripples = document.createElement("span");
+      ripples.className =
+        `left-[${x}px] top-[${y}px]` +
+        " absolute bg-white -translate-x-1/2 -translate-y-1/2 rounded-full animate-ripple";
+      this.appendChild(ripples);
+      setTimeout(() => ripples.remove(), 500);
+    });
+  });
+</script>
+
+{% endblock content %}

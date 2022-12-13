@@ -1,0 +1,194 @@
+{% extends 'base.html' %} {% load static %} {% block meta %} {% endblock meta %}
+{% block content %}
+
+<div class="mt-6 flex justify-center items-center">
+  <div class="flex">
+    <button
+      id="admin-button"
+      onclick="role='admin'"
+      class="role-button relative px-4 py-2 bg-indigo-100 hover:bg-indigo-200 duration-300 rounded-lg shadow-md text-indigo-600 overflow-hidden tracking-wider"
+    >
+      Admin
+    </button>
+    <button
+      id="pelanggan-button"
+      onclick="role='pelanggan'"
+      class="role-button relative ml-4 px-4 py-2 bg-indigo-100 hover:bg-indigo-200 duration-300 rounded-lg shadow-md text-indigo-600 overflow-hidden tracking-wider"
+    >
+      Pelanggan
+    </button>
+    <button
+      id="restoran-button"
+      onclick="role='restoran'"
+      class="role-button relative ml-4 px-4 py-2 bg-indigo-100 hover:bg-indigo-200 duration-300 rounded-lg shadow-md text-indigo-600 overflow-hidden tracking-wider"
+    >
+      Restoran
+    </button>
+    <button
+      id="kurir-button"
+      onclick="role='kurir'"
+      class="role-button relative ml-4 px-4 py-2 bg-indigo-100 hover:bg-indigo-200 duration-300 rounded-lg shadow-md text-indigo-600 overflow-hidden tracking-wider"
+    >
+      Kurir
+    </button>
+  </div>
+</div>
+<div class="mt-6 flex justify-center items-center">
+  <div class="w-96 shadow-lg p-6 rounded-lg">
+    <h1 class="text-5xl font-extrabold">Register</h1>
+    <p class="mt-6 text-xl">Email</p>
+    <input type="text" name="email" class="w-full rounded-lg" />
+    <p class="mt-4 text-xl">Password</p>
+    <input type="password" name="password" class="w-full rounded-lg" />
+    <p class="mt-4 text-xl">Nama</p>
+    <input type="text" name="name" class="w-full rounded-lg" />
+    <p class="mt-4 text-xl">Nomor HP</p>
+    <input type="text" name="phonenum" class="w-full rounded-lg" />
+    <div id="other-input"></div>
+    <p class="mt-4">
+      Already registered?
+      <a href="/login/" class="font-bold text-indigo-500">Login</a>
+    </p>
+    <button
+      onclick="setTimeout(() => location.href='/login/', 300)"
+      class="relative w-full mt-4 py-2 bg-indigo-500 hover:bg-indigo-600 duration-300 rounded-lg shadow-md text-xl text-white overflow-hidden tracking-wider"
+    >
+      Register
+    </button>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  $(document).ready(() => {
+    const roles = ["admin", "pelanggan", "restoran", "kurir"];
+    roles.forEach((role) => {
+      $(`#${role}-button`).click(() => {
+        $("#other-input").html("");
+        if (role != "admin") {
+          $("#other-input").append(`
+            <p class="mt-4 text-xl">NIK</p>
+            <input type="text" name="nik" class="w-full rounded-lg">
+            <p class="mt-4 text-xl">Nama Bank</p>
+            <input type="text" name="bankname" class="w-full rounded-lg">
+            <p class="mt-4 text-xl">Nomor Rekening</p>
+            <input type="text" name="accountno" class="w-full rounded-lg">
+          `);
+          if (role == "pelanggan") {
+            $("#other-input").append(`
+              <p class="mt-4 text-xl">Tanggal Lahir</p>
+              <input type="date" name="birthdate" class="w-full rounded-lg">
+              <p class="mt-4 text-xl">Jenis Kelamin</p>
+              <select type="text" name="sex" class="w-full rounded-lg">
+                <option value='M'>Laki-laki</option>
+                <option value='F'>Perempuan</option>
+              </select>
+            `);
+          }
+          if (role == "restoran") {
+            $("#other-input").append(`
+              <p class="mt-4 text-xl">Nama Restoran</p>
+              <input type="text" name="rname" class="w-full rounded-lg">
+              <p class="mt-4 text-xl">Cabang</p>
+              <input type="text" name="rbranch" class="w-full rounded-lg">
+              <p class="mt-4 text-xl">Nomor Telepon Restoran</p>
+              <input type="text" name="rphonenum" class="w-full rounded-lg">
+              <p class="mt-4 text-xl">Jalan</p>
+              <input type="text" name="street" class="w-full rounded-lg">
+              <p class="mt-4 text-xl">Kecamatan</p>
+              <input type="text" name="district" class="w-full rounded-lg">
+              <p class="mt-4 text-xl">Kota</p>
+              <input type="text" name="city" class="w-full rounded-lg">
+              <p class="mt-4 text-xl">Provinsi</p>
+              <select type="text" name="province" class="w-full rounded-lg">
+                <option value="Nanggroe Aceh Darussalam">Nanggroe Aceh Darussalam</option>
+                <option value="Sumatera Utara">Sumatera Utara</option>
+                <option value="Sumatera Selatan">Sumatera Selatan</option>
+                <option value="Sumatera Barat">Sumatera Barat</option>
+                <option value="Bengkulu">Bengkulu</option>
+                <option value="Riau">Riau</option>
+                <option value="Kepulauan Riau">Kepulauan Riau</option>
+                <option value="Jambi">Jambi</option>
+                <option value="Lampung">Lampung</option>
+                <option value="Bangka Belitung">Bangka Belitung</option>
+                <option value="Kalimantan Barat">Kalimantan Barat</option>
+                <option value="Kalimantan Timur">Kalimantan Timur</option>
+                <option value="Kalimantan Selatan">Kalimantan Selatan</option>
+                <option value="Kalimantan Tengah">Kalimantan Tengah</option>
+                <option value="Kalimantan Utara">Kalimantan Utara</option>
+                <option value="Banten">Banten</option>
+                <option value="DKI Jakarta">DKI Jakarta</option>
+                <option value="Jawa Barat">Jawa Barat</option>
+                <option value="Jawa Tengah">Jawa Tengah</option>
+                <option value="Daerah Istimewa Yogyakarta">Daerah Istimewa Yogyakarta</option>
+                <option value="Jawa Timur">Jawa Timur</option>
+                <option value="Bali">Bali</option>
+                <option value="Nusa Tenggara Timur">Nusa Tenggara Timur</option>
+                <option value="Nusa Tenggara Barat">Nusa Tenggara Barat</option>
+                <option value="Gorontalo">Gorontalo</option>
+                <option value="Sulawesi Barat">Sulawesi Barat</option>
+                <option value="Sulawesi Tengah">Sulawesi Tengah</option>
+                <option value="Sulawesi Utara">Sulawesi Utara</option>
+                <option value="Sulawesi Tenggara">Sulawesi Tenggara</option>
+                <option value="Sulawesi Selatan">Sulawesi Selatan</option>
+                <option value="Maluku Utara">Maluku Utara</option>
+                <option value="Maluku">Maluku</option>
+                <option value="Papua Barat">Papua Barat</option>
+                <option value="Papua">Papua</option>
+                <option value="Papua Tengah">Papua Tengah</option>
+                <option value="Papua Pegunungan">Papua Pegunungan</option>
+                <option value="Papua Selatan">Papua Selatan</option>
+                <option value="Papua Barat Daya">Papua Barat Daya</option>
+              </select>
+              <p class="mt-4 text-xl">Kategori Restoran</p>
+              <select id="category-select" type="text" name="rcategory" class="w-full rounded-lg">
+                
+              </select>
+            `);
+            $.get('/api/food-category/', (categories) => {
+              categories.forEach(category => {
+                $('#category-select').append(`
+                  <option value="${category.id}">${category.name}</option>
+                `)
+              })
+            })
+          }
+          if (role == "kurir") {
+            $("#other-input").append(`
+              <p class="mt-4 text-xl">Plat Nomor Kendaraan</p>
+              <input type="text" name="platenum" class="w-full rounded-lg">
+              <p class="mt-4 text-xl">Nomor SIM</p>
+              <input type="text" name="drivinglicensenum" class="w-full rounded-lg">
+              <p class="mt-4 text-xl">Jenis Kendaraan</p>
+              <select type="text" name="vehicletype" class="w-full rounded-lg">
+                <option value='Mobil'>Mobil</option>
+                <option value='Motor'>Motor</option>
+              </select>
+              <p class="mt-4 text-xl">Merk Kendaraan</p>
+              <input type="text" name="vehiclebrand" class="w-full rounded-lg">
+            `);
+          }
+        }
+      });
+    });
+  });
+</script>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  const buttons = document.querySelectorAll("button");
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", function (e) {
+      const x = e.clientX - this.offsetLeft;
+      const y = e.clientY - this.offsetTop + window.pageYOffset;
+      const ripples = document.createElement("span");
+      ripples.className =
+        `left-[${x}px] top-[${y}px]` +
+        " absolute bg-white -translate-x-1/2 -translate-y-1/2 rounded-full animate-ripple";
+      this.appendChild(ripples);
+      setTimeout(() => ripples.remove(), 500);
+    });
+  });
+</script>
+
+{% endblock content %}

@@ -1,0 +1,91 @@
+{% extends 'base.html' %} {% block content %}
+
+<div
+  class="nilai-container"
+  style="
+    max-width: 500px;
+    min-height: 200px;
+    margin: auto;
+    background-color: #fff;
+    -webkit-box-shadow: 2px 2px 13px -4px rgba(0, 0, 0, 0.21);
+    box-shadow: 2px 2px 13px -4px rgba(0, 0, 0, 0.21);
+    text-align: center;
+    resize: auto;
+  "
+>
+  <div
+    class="header"
+    style="
+      display: flex;
+      justify-content: space-between;
+      color: #fff;
+      padding: 10px;
+      border-radius: 5px 5px 0 0;
+      background: #8cbcb2;
+    "
+  >
+    <h3>FORM BUAT JAM OPERASIONAL</h3>
+  </div>
+
+  <div class="form-container form-input flex-wrap flex-row">
+    <form method="POST" action="" id="newForm">
+      {% csrf_token %}
+      <table>
+        <tr>
+          <td>Hari:</td>
+          <td>
+            <select name="jamOperasional" id="jamOperasional">
+              <option value="senin" disabled>Senin</option>
+              <option value="selasa">Selasa</option>
+              <option value="rabu">Rabu</option>
+              <option value="kamis">Kamis</option>
+              <option value="jumat">Jumat</option>
+              <option value="sabtu">Sabtu</option>
+              <option value="minggu">Minggu</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Jam Buka:</td>
+          <td>
+            <input
+              type="time"
+              name="start"
+              class="form-control"
+              id="jamOperasional"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>Jam Tutup:</td>
+          <td>
+            <input
+              type="time"
+              name="end"
+              class="form-control"
+              id="jamOperasional"
+            />
+          </td>
+        </tr>
+      </table>
+      <div class="tombol flex-col" style="padding: 20px">
+        <input
+          class="btn"
+          style="background-color: #8cbcb2"
+          type="submit"
+          name="submit"
+          value="Submit"
+        />
+        <input
+          class="btn"
+          style="background-color: #8cbcb2"
+          type="button"
+          value="Go back!"
+          onclick="history.back()"
+        />
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock content%}

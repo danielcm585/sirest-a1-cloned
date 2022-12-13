@@ -1,0 +1,2 @@
+Restaurant ID  : {Rname}|{Rbranch}
+Transaction ID : {Email}|{Year}{Month}{Date}{Hour}{Minute}{Second}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+{% endblock meta %}
+
+{% block content %}
+<div class="flex justify-center">
+    <h1 class="text-3xl font-bold text-indigo-600">Ringkasan Pesanan</h1>
+</div>
+
+<div class="flex justify-center">
+    <div class="box-content h-32 p-4 border-4" style="max-width: 70%;">
+    <p>Waktu Pemesanan: 2022-11-04 11:30:05</p>
+    <p>Nama Pelanggan: Mikayla Putri</p>
+    <p>Jalan: Jalan Bahagia nomor 72</p>
+    <p>Kecamatan: Cinere</p>
+    <p>Kota: Depok</p>
+    <p>Provinsi: Jawa Barat</p>
+    <br>
+
+    <p>Restoran: Warung Mantap Depok</p>
+    <p>Jalan: Jalan Sejahtera nomor 5</p>
+    <p>Kecamatan: Bojongsari</p>
+    <p>Kota: Depok</p>
+    <p>Provinsi: Jawa Barat</p>
+    <br>
+
+    <h6 class="text font-bold text-indigo-600">Makanan yang dipesan:</h6>
+    <ol>
+        <li>Ayam Goreng(1)</li>
+        <li>Ice Cream (2)</li>
+    </ol>
+
+    <p>Total Harga Makanan: 11000</p>
+    <p>Total Diskon: 0</p>
+    <p>Biaya Pengantaran: 4000</p>
+    <p>Total Biaya: 15000</p>
+    <p>Jenis Pembayaran: RestoPay</p>
+    <br>
+
+    <p>Status Pembayaran: Berhasil</p>
+    <p>Status Pesanan: Pesanan Diantar</p>
+    <br>
+
+    <p>Kurir: Doni Suryana</p>
+    <p>Plat Kendaraan: B 0001 KNN</p>
+    <p>Jenis Kendaraan: Motor</p>
+    <p>Merk Kendaraan: Honda Vario</p>
+    </div>
+
+    <div class="fixed bottom-0 w-full">
+        <button class="w-full bg-indigo-500 py-3 rounded-xl hover:bg-indigo-600 duration-300 text-lg text-white" type="button" href="/pesanan-berlangsung/kurir/">
+                Kembali
+        </button>
+    </div>
+</div>
+{% endblock content %}

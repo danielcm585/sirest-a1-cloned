@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+
+<title>SIREST - A1</title>
+
+{% endblock meta %}
+
+{% block content %}
+
+<div class="flex justify-center items-center">
+  <div class="w-fit">
+    <h1 class="mt-80 text-center text-5xl font-extrabold">SIREST - A1</h1>
+    <div class="mt-6 flex justify-center">
+      <button onclick="setTimeout(() => location.href='/register/', 300)" class="relative px-6 py-3 bg-indigo-100 hover:bg-indigo-200 duration-300 rounded-lg shadow-md text-xl text-indigo-600 overflow-hidden tracking-wider">
+        Register
+      </button>
+      <button onclick="setTimeout(() => location.href='/login/', 300)" class="relative ml-4 px-6 py-3 bg-indigo-500 hover:bg-indigo-600 duration-300 rounded-lg shadow-md text-xl text-white overflow-hidden tracking-wider">
+        Login
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  const buttons = document.querySelectorAll('button');
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', function(e) {
+      const x = e.clientX - this.offsetLeft;
+      const y = e.clientY - this.offsetTop + window.pageYOffset;
+      const ripples = document.createElement('span');
+      ripples.className = `left-[${x}px] top-[${y}px]` + ' absolute bg-white -translate-x-1/2 -translate-y-1/2 rounded-full animate-ripple';
+      this.appendChild(ripples);
+      setTimeout(() => ripples.remove(), 500);
+    })
+  })
+</script>
+
+{% endblock content %}

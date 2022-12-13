@@ -1,0 +1,59 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+
+{% endblock meta %}
+
+{% block content %}
+
+<div class="riwayat-container" style="margin-top:100px">
+    {%if data.role == 'Restoran'%}
+    <h1 class= "text-5xl font-extrabold" style="text-align: center; margin-top:30px;"> Daftar Promo </h1>
+    <div style="margin-top:60px;margin-bottom:30px; text-align:center;"><a href="{% url 'sirest:tambah_promo_resto' %}" class="button relative px-6 py-3  duration-300 rounded-lg shadow-md text-xl text-white overflow-hidden tracking-wider" style="background-color:#8cbcb2;">
+        Tambah Promo
+    </a>
+    <table class="riwayat-table" style="border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 600px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;">
+                <tr style="background-color: #8cbcb2;
+                text-align: center;">
+                <th>No</th>
+                <th>Nama Promosi</th>
+                <th>Periode Promosi</th>
+                <th>Aksi</th>
+                </tr>
+                {%for item in data.daftar_promo%}<tr>
+                    <th>{{forloop.counter}}</th>
+                    <th>{{item.name}}</th>
+                    <th>{{item.start_promo}} s.d. {{item.end_promo}}</th>
+                    <th class="flex-row">
+                        <a href="/detail-promo-resto/{{item.pk}}">Detail</a> 
+                        <a href="/ubah-promo-resto/{{item.pk}}">Ubah</a>
+                        <a href="/hapus-promo-resto/{{item.pk}}">Hapus</a>
+                      
+                         
+                    </th>
+                </tr>
+                {%endfor%}
+    </table>
+    
+    {%endif%}
+</div>
+
+<script>
+    function openModal(){
+        $('#modalForm').modal('show') 
+    }
+
+
+</script>
+{% endblock content %}

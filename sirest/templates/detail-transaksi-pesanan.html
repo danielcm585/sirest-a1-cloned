@@ -1,0 +1,131 @@
+{% extends 'base.html' %} {% load static %} {% block meta %} {% endblock meta %}
+{% block content %}
+
+<div class="detail-container" style="min-width: 400px">
+  <h1
+    class="text-5xl font-extrabold"
+    style="text-align: center; margin-top: 30px"
+  >
+    Detail Transaksi Pesanan
+  </h1>
+  <div style="text-align: center">
+    <table
+      class="riwayat-table"
+      style="
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 600px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+      "
+    >
+      <tr style="text-align: left">
+        <th>Waktu Pemesanan:</th>
+        <th>{{datetime}}</th>
+      </tr>
+      <tr style="text-align: left">
+        <th>Nama Pelanggan:</th>
+        <th>{{name}}</th>
+      </tr>
+      <tr style="text-align: left">
+        <th>Jalan:</th>
+        <th>{{street}}</th>
+      </tr>
+      <tr style="text-align: left">
+        <th>Kecamatan:</th>
+        <th>{{district}}</th>
+      </tr>
+      <tr style="text-align: left">
+        <th>Kota:</th>
+        <th>{{city}}</th>
+      </tr>
+      <tr style="text-align: left">
+        <th>Provinsi:</th>
+        <th>{{province}}</th>
+      </tr>
+      <tr style="text-align: left">
+        <th>Restoran:</th>
+        <th>{{restoname}}</th>
+      </tr>
+      <tr style="text-align: left">
+        <th>Jalan Restoran:</th>
+        <th>{{streetresto}}</th>
+      </tr>
+      <tr style="text-align: left">
+        <th>Kota Restoran:</th>
+        <th>{{cityresto}}</th>
+      </tr>
+      <tr style="text-align: left">
+        <th>Provinsi Restoran:</th>
+        <th>{{provinceresto}}</th>
+      </tr>
+      <tr style="text-align: left">
+        <th>Makanan Yang Dipesan:</th>
+      </tr>
+      <tr style="text-align: left">
+        <th>
+          {% for data in foodname %}
+          <li>{{data.food}} ({{data.amount}}) - {{data.note}}</li>
+          {% endfor %}
+        </th>
+      </tr>
+      <th></th>
+      <tr style="text-align: left">
+        <th>Total Harga Makanan:</th>
+        <th>{{totalfood}}</th>
+      </tr>
+      <tr style="text-align: left">
+        <th>Total Diskon:</th>
+        <th>{{totaldiscount}}</th>
+      </tr>
+      <tr style="text-align: left">
+        <th>Biaya Pengantaran:</th>
+        <th>{{deliveryfee}}</th>
+      </tr>
+      <tr style="text-align: left">
+        <th>Total Biaya:</th>
+        <th>{{totalprice}}</th>
+      </tr>
+      <tr style="text-align: left">
+        <th>Jenis Pembayaran:</th>
+        <th>{{payment_method}}</th>
+      </tr>
+      <tr style="text-align: left">
+        <th>Status Pembayaran:</th>
+        <th>{{payment_status}}</th>
+      </tr>
+      <tr style="text-align: left">
+        <th>Status Pesanan:</th>
+        <th>{{transaction_status}}</th>
+      </tr>
+      <tr style="text-align: left">
+        <th>Kurir:</th>
+        <th>{{couriername}}</th>
+      </tr>
+      <tr style="text-align: left">
+        <th>Plat Kendaraan:</th>
+        <th>{{platenum}}</th>
+      </tr>
+      <tr style="text-align: left">
+        <th>Jenis Kendaraan:</th>
+        <th>{{vehicletype}}</th>
+      </tr>
+      <tr style="text-align: left">
+        <th>Merk Kendaraan:</th>
+        <th>{{vehiclebrand}}</th>
+      </tr>
+    </table>
+    <input
+      class="btn"
+      style="background-color: #8cbcb2"
+      type="button"
+      value="Go back!"
+      onclick="history.back()"
+    />
+  </div>
+</div>
+{% endblock content %}

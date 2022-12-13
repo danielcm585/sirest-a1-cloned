@@ -1,0 +1,477 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>SIREST</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+
+    {% tailwind_css %} {% block meta %} {% endblock meta %}
+  </head>
+
+  <body class="bg-gray-50 font-sans leading-normal tracking-normal">
+    <nav
+      class="fixed top-0 w-full bg-white shadow-md py-4 flex justify-center items-center z-20"
+    >
+      <div class="w-11/12 flex justify-between items-center">
+        <a href="/dashboard/">
+          <h1 class="text-3xl font-extrabold">SIREST-A1</h1>
+        </a>
+        <div id="menu-button">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </nav>
+
+    {% if not is_logged_in %}
+
+    <div id="menu" class="fixed w-full top-[-60px] z-10 bg-white duration-500">
+      <div class="w-full">
+        <a href="/login/">
+          <div
+            class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+          >
+            Login
+          </div>
+        </a>
+        <a href="/register/">
+          <div
+            class="py-4 flex justify-center border-top-2 border-gray-600 hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+          >
+            Register
+          </div>
+        </a>
+      </div>
+    </div>
+
+    {% else %} {% if is_verified %} {% if role == 'Admin' %}
+
+    <div id="menu" class="fixed w-full top-[-170px] z-10 bg-white duration-500">
+      <div id="accordion-1" class="w-full">
+        <div
+          class="head py-4 flex justify-center items-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+        >
+          Restoran
+          <i class="ml-2 fas fa-angle-down arrow"></i>
+        </div>
+        <div class="content">
+          <a href="/kategori-restoran/">
+            <div
+              class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+            >
+              Daftar Kategori Restoran
+            </div>
+          </a>
+          <a href="/kategori-restoran/create/">
+            <div
+              class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+            >
+              Buat Kategori Restoran
+            </div>
+          </a>
+          <a href="/food-category/">
+            <div
+              class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+            >
+              Daftar Kategori Makanan
+            </div>
+          </a>
+          <a href="/new-food-category/">
+            <div
+              class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+            >
+              Buat Kategori Makanan
+            </div>
+          </a>
+          <a href="/bahan-makanan/">
+            <div
+              class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+            >
+              Daftar Bahan Makanan
+            </div>
+          </a>
+          <a href="/bahan-makanan/create/">
+            <div
+              class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+            >
+              Buat Bahan Makanan
+            </div>
+          </a>
+          <a href="#">
+            <div
+              class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+            >
+              Daftar Restoran dan Makanan
+            </div>
+          </a>
+        </div>
+      </div>
+      <div id="accordion-1" class="w-full">
+        <div
+          class="head py-4 flex justify-center items-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+        >
+          Promo
+          <i class="ml-2 fas fa-angle-down arrow"></i>
+        </div>
+        <div class="content">
+          <a href="/daftar-promo/">
+            <div
+              class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+            >
+              Daftar Promo
+            </div>
+          </a>
+          <a href="/buat-promo/">
+            <div
+              class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+            >
+              Buat Promo
+            </div>
+          </a>
+        </div>
+      </div>
+      <div id="accordion-1" class="w-full">
+        <div
+          class="head py-4 flex justify-center items-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+        >
+          Pesanan
+          <i class="ml-2 fas fa-angle-down arrow"></i>
+        </div>
+        <div class="content">
+          <a href="#">
+            <div
+              class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+            >
+              Daftar Tarif Pengiriman Per KM
+            </div>
+          </a>
+          <a href="#">
+            <div
+              class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+            >
+              Buat Tarif Pengiriman Per KM
+            </div>
+          </a>
+        </div>
+      </div>
+      <div
+        id="logout-button"
+        class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+      >
+        Logout
+      </div>
+    </div>
+
+    {% elif role == 'Restoran' %}
+
+    <div id="menu" class="fixed w-full top-[-350px] z-10 bg-white duration-500">
+      <a href="/dashboard/">
+        <div
+          class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+        >
+          Dashboard
+        </div>
+      </a>
+      <div id="accordion-1" class="w-full">
+        <div
+          class="head py-4 flex justify-center items-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+        >
+          Jam Operasional
+          <i class="ml-2 fas fa-angle-down arrow"></i>
+        </div>
+        <div class="content">
+          <a href="/daftar-jam-op/">
+            <div
+              class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+            >
+              Daftar Jam Operasional
+            </div>
+          </a>
+          <a href="/tambah-jam-op/">
+            <div
+              class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+            >
+              Buat Jam Operasional
+            </div>
+          </a>
+        </div>
+      </div>
+      <div id="accordion-1" class="w-full">
+        <div
+          class="head py-4 flex justify-center items-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+        >
+          Makanan
+          <i class="ml-2 fas fa-angle-down arrow"></i>
+        </div>
+        <div class="content">
+          <a href="#">
+            <div
+              class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+            >
+              Daftar Makanan
+            </div>
+          </a>
+          <a href="#">
+            <div
+              class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+            >
+              Buat Makanan
+            </div>
+          </a>
+        </div>
+      </div>
+      <div id="accordion-1" class="w-full">
+        <div
+          class="head py-4 flex justify-center items-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+        >
+          Pesanan
+          <i class="ml-2 fas fa-angle-down arrow"></i>
+        </div>
+        <div class="content">
+          <a href="/transaksi-pesanan/">
+            <div
+              class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+            >
+              Pesanan Berlangsung
+            </div>
+          </a>
+          <a href="/riwayat-transaksi-pesanan/">
+            <div
+              class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+            >
+              Riwayat Pesanan
+            </div>
+          </a>
+        </div>
+      </div>
+      <div id="accordion-1" class="w-full">
+        <div
+          class="head py-4 flex justify-center items-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+        >
+          Promo
+          <i class="ml-2 fas fa-angle-down arrow"></i>
+        </div>
+        <div class="content">
+          <a href="/daftar-promo/">
+            <div
+              class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+            >
+              Daftar Promo Tersedia
+            </div>
+          </a>
+          <a href="/daftar-promo-resto/">
+            <div
+              class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+            >
+              Daftar Promo Restoran
+            </div>
+          </a>
+        </div>
+      </div>
+      <a href="/restopay/">
+        <div
+          class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+        >
+          RestoPay
+        </div>
+      </a>
+      <div
+        class="logout-button py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+      >
+        Logout
+      </div>
+    </div>
+
+    {% elif role == 'Pelanggan' %}
+
+    <div id="menu" class="fixed w-full top-[-230px] z-10 bg-white duration-500">
+      <a href="/dashboard/">
+        <div
+          class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+        >
+          Dashboard
+        </div>
+      </a>
+      <a href="#">
+        <div
+          class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+        >
+          Daftar Restoran dan Makanan
+        </div>
+      </a>
+      <div id="accordion-1" class="w-full">
+        <div
+          class="head py-4 flex justify-center items-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+        >
+          Pesanan
+          <i class="ml-2 fas fa-angle-down arrow"></i>
+        </div>
+        <div class="content">
+          <a href="/new-transaction/1/">
+            <div
+              class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+            >
+              Buat Pesanan
+            </div>
+          </a>
+          <a href="/transaction/">
+            <div
+              class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+            >
+              Pesanan Berlangsung
+            </div>
+          </a>
+          <a href="/riwayat-transaksi-pesanan/">
+            <div
+              class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+            >
+              Riwayat Pesanan
+            </div>
+          </a>
+        </div>
+      </div>
+      <a href="#">
+        <div
+          class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+        >
+          RestoPay
+        </div>
+      </a>
+      <div
+        id="logout-button"
+        class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+      >
+        Logout
+      </div>
+    </div>
+
+    {% elif role == 'Kurir' %}
+
+    <div id="menu" class="fixed w-full top-[-230px] z-10 bg-white duration-500">
+      <a href="/dashboard/">
+        <div
+          class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+        >
+          Dashboard
+        </div>
+      </a>
+      <a href="#">
+        <div
+          class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+        >
+          Daftar Restoran dan Makanan
+        </div>
+      </a>
+      <div id="accordion-1" class="w-full">
+        <div
+          class="head py-4 flex justify-center items-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+        >
+          Pesanan
+          <i class="ml-2 fas fa-angle-down arrow"></i>
+        </div>
+        <div class="content">
+          <a href="#">
+            <div
+              class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+            >
+              Pesanan Berlangsung
+            </div>
+          </a>
+          <a href="/riwayat-transaksi-pesanan/">
+            <div
+              class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+            >
+              Riwayat Pesanan
+            </div>
+          </a>
+        </div>
+      </div>
+      <a href="#">
+        <div
+          class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+        >
+          RestoPay
+        </div>
+      </a>
+      <div
+        id="logout-button"
+        class="py-4 flex justify-center hover:bg-gray-100 text-indigo-600 text-lg font-medium"
+      >
+        Logout
+      </div>
+    </div>
+
+    {% endif %} {% endif %} {% endif %}
+
+    <div class="mt-24">{% block content %} {% endblock content %}</div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+      $(document).ready(() => {
+        const isLoggedIn = "{{is_logged_in}}" == "True";
+        const role = "{{role}}";
+        let isMenuOpen = false;
+
+        $("#menu-button").click(() => {
+          $("#menu-button").toggleClass("open");
+          if (isMenuOpen) {
+            $(document).removeClass("active");
+            $(document).removeClass("arrow-animate");
+            $("#menu").removeClass("top-[70px]");
+            if (!isLoggedIn) {
+              $("#menu").addClass("top-[-60px]");
+            } else if (role == "Admin") {
+              $("#menu").addClass("top-[-170px]");
+            } else if (role == "Pelanggan" || role == "Kurir") {
+              $("#menu").addClass("top-[-230px]");
+            } else if (role == "Restoran") {
+              $("#menu").addClass("top-[-350px]");
+            }
+          } else {
+            $("#menu").addClass("top-[70px]");
+            if (!isLoggedIn) {
+              $("#menu").removeClass("top-[-60px]");
+            } else if (role == "Admin") {
+              $("#menu").removeClass("top-[-170px]");
+            } else if (role == "Pelanggan" || role == "Kurir") {
+              $("#menu").removeClass("top-[-230px]");
+            } else if (role == "Restoran") {
+              $("#menu").removeClass("top-[-350px]");
+            }
+          }
+          isMenuOpen = !isMenuOpen;
+        });
+
+        $(".head").click(function () {
+          $(this).toggleClass("active");
+          $(this).parent().find(".arrow").toggleClass("arrow-animate");
+          $(this).parent().find(".content").slideToggle(280);
+        });
+
+        $(".logout-button").click(() => {
+          $.ajax({
+            url: "/api/logout/",
+            method: "GET",
+            dataType: "json",
+            success: (resp) => {
+              location.href = "/";
+            },
+            error: () => {
+              alert("Logout gagal");
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

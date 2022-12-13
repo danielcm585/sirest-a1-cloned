@@ -1,0 +1,61 @@
+[
+  {
+    "user": {
+      "email": "John_Christiansen@gmail.com",
+      "phonenum": "65700203420265",
+      "fname": "John",
+      "lname": "Christiansen"
+    },
+    "restaurant": {
+      "rname": "The King's Empress",
+      "rbranch": "Fayetteville",
+      "email": "Mr_Salvador@gmail.com",
+      "rphonenum": "16908104443210",
+      "street": "Jl. Malioboro no. 22",
+      "district": "Danurejan",
+      "city": "Yogyakarta",
+      "province": "DIY Yogyakarta",
+      "rating": 1,
+      "category": "Indian"
+    },
+    "email": "John_Christiansen@gmail.com",
+    "datetime": "2022-05-11T17:23:44",
+    "street": "Jl. Taman Asri",
+    "district": "Kembangan",
+    "city": "Jakarta Barat",
+    "province": "DKI Jakarta",
+    "totalfood": 11.0,
+    "totaldiscount": 20.5,
+    "deliveryfee": 8.5,
+    "totalprice": 65.0,
+    "rating": 7,
+    "paymentmethod": "Cash",
+    "paymentstatus": "Menunggu pembayaran",
+    "transactionstatus": [
+      {
+        "status": "Pesanan selesai",
+        "timestamp": "2022-05-11T17:24:44"
+      }
+    ],
+    "dfid": "00000000000000000000",
+    "courier": {
+      "email": "Veda_Watsica@gmail.com",
+      "platenum": "IS1CKB",
+      "drivinglicensenum": "00000000000020",
+      "vehicletype": "Motor",
+      "vehiclebrand": "Honda"
+    },
+    "menus": [
+      {
+        "email": "John_Christiansen@gmail.com",
+        "datetime": "2022-05-11T17:23:44",
+        "rname": "The King's Empress",
+        "rbranch": "Fayetteville",
+        "foodname": "Plumcot and pollack salad",
+        "amount": 8,
+        "note": "Extra sauce please",
+        "price": 700000
+      }
+    ]
+  }
+]

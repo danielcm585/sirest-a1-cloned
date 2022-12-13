@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="nilai-container" style="max-width: 500px; min-height:200px;
+margin: auto;
+background-color: #fff;
+-webkit-box-shadow: 2px 2px 13px -4px rgba(0, 0, 0, 0.21);
+box-shadow: 2px 2px 13px -4px rgba(0, 0, 0, 0.21);
+text-align: center;
+resize: auto;">
+    <div class="header" style="display: flex;
+    justify-content: space-between;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
+    background: #8cbcb2">
+        <h3>FORM UBAH MAKANAN</h3>
+    </div>
+
+    <div class="form-container form-input  flex-wrap flex-row ">
+        <form method="POST" action="" id="newForm">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>Nama Makanan: </td>
+                    <td><input type="text" name="namaMakanan" placeholder="Harap diisi" class="form-control" id="namaMakanan" value="Milkshake Vanilla" disabled></td>
+                </tr>
+                <tr>
+                    <td>Deskripsi: </td>
+                    <td><input type="text" name="deskripsi" placeholder="Harap diisi" class="form-control" id="deskripsi"></td>
+                </tr>
+                <tr>
+                    <td>Stok: </td>
+                    <td><input type="text" name="stok" placeholder="Harap diisi" class="form-control" id="stok"></td>
+                </tr>
+                <tr>
+                    <td>Harga: </td>
+                    <td><input type="text" name="harga" placeholder="Harap diisi" class="form-control" id="harga"></td>
+                </tr>
+                <tr>
+                    <td>kategori Makanan: </td>
+                    <td><select name="kategoriMakanan" id="kategoriMakanan">
+                        <option value="seafood">Seafood</option>
+                        <option value="chinese">Chinese Food</option>
+                        <option value="western">Western Food</option>
+                        <option value="indonesian">Indonesian Food</option>
+                        <option value="japanese">Japanese Food</option>
+                    </select>
+                    </td>
+                    <!-- <td><input type="text" name="kategoriMakanan" placeholder="Harap diisi" class="form-control" id="kategoriMakanan"></td> -->
+                </tr>
+
+
+                <tr id="bodyTombol">
+                        
+                        <td>Bahan Makanan: </td>
+                        
+                        <!-- <td><input type="text" name="bahanMakanan" placeholder="Harap diisi" class="form-control" id="bahanMakanan"></td> -->
+                        <!-- data nama dari table INGREDIENT ada 20 -->
+
+                        <td id="tombolKurang">
+                            <select name="bahanMakanan" id="bahanMakanan">
+                                <option value="fennelseed">Fennel Seed</option>
+                                <option value="garlicpowder">Garlic Powder</option>
+                                <option value="cranberry">Cranberry</option>
+                                <option value="lemonade">Lemonade</option>
+                                <option value="cantaloupe">Cantaloupe</option>
+                                <option value="soymilk">Soy Milk</option>
+                                <option value="passionfruit">Passion Fruit</option>
+                            </select>
+                            
+                        </td>
+
+                        
+
+                        <tr>
+                            <td></td>
+                            <td id="tombolKurang">
+                                <select name="bahanMakanan" id="bahanMakanan">
+                                    <option value="fennelseed">Fennel Seed</option>
+                                    <option value="garlicpowder">Garlic Powder</option>
+                                    <option value="cranberry">Cranberry</option>
+                                    <option value="lemonade">Lemonade</option>
+                                    <option value="cantaloupe">Cantaloupe</option>
+                                    <option value="soymilk">Soy Milk</option>
+                                    <option value="passionfruit">Passion Fruit</option>
+                                </select>
+                                
+                            </td>
+
+                            <th id="tombolKurang"> 
+                                <td><a href="javascript:void(0)" class="btn-btn-danger deleteRow">[-]</a> </td>
+                            </th>
+    
+                        </tr>
+
+                        
+
+
+                        
+
+                        <!-- <tr id="tombolKurang"> 
+                            <td><a href="javascript:void(0)" class="btn-btn-danger deleteRow">[-]</a> </td>
+                        </tr> -->
+    
+                        <!-- <button  type="button" onclick="tambah()" > hai </button> -->
+    
+                        
+                        
+                        <!-- <td><select name="kategoriMakanan" id="kategoriMakanan">
+                            <option value="fennelseed">Fennel Seed</option>
+                            <option value="garlicpowder">Garlic Powder</option>
+                            <option value="cranberry">Cranberry</option>
+                        </select>
+                        </td> -->
+
+                        
+                    </tr>
+
+                    <tr id="tombolTambah">
+                        <td><a href="javascript:void(0)" class="btn-btn-success addRow">[+]</a> </td>
+                    </tr>
+
+                    
+
+
+            </table>
+            <div class="tombol flex-col" style="padding:20px;">
+                <input class="btn" style="background-color:#8cbcb2" type="submit" name="submit" value="Simpan"/>
+                <!-- <input class="btn" style="background-color:#8cbcb2" type="button" value="Go back!" onclick="history.back()"> -->
+            </div>
+        </form>
+        
+
+    </div>
+</div>
+
+{% endblock content%}

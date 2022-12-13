@@ -1,0 +1,79 @@
+{% extends 'base.html' %} {% block content %}
+
+<div
+  class="nilai-container"
+  style="
+    max-width: 500px;
+    min-height: 200px;
+    margin: auto;
+    background-color: #fff;
+    -webkit-box-shadow: 2px 2px 13px -4px rgba(0, 0, 0, 0.21);
+    box-shadow: 2px 2px 13px -4px rgba(0, 0, 0, 0.21);
+    text-align: center;
+    resize: auto;
+  "
+>
+  <div
+    class="header"
+    style="
+      display: flex;
+      justify-content: space-between;
+      color: #fff;
+      padding: 10px;
+      border-radius: 5px 5px 0 0;
+      background: #8cbcb2;
+    "
+  >
+    <h3>FORM TARIK SALDO</h3>
+  </div>
+
+  <div class="form-container form-input flex-wrap flex-row">
+    <form method="POST" action="" id="newForm">
+      {% csrf_token %}
+      <table>
+        <tr>
+          <td>Saldo Saat ini: {{command.restopay}}</td>
+        </tr>
+        <tr>
+          <td>Nominal Penarikan:</td>
+          <td>
+            <input
+              type="text"
+              id="nominal"
+              name="nominal"
+              placeholder="Isi Nominal Penarikan"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>Dari: {{name}}</td>
+        </tr>
+        <tr>
+          <td>Nama Bank: {{command.bankname}}</td>
+        </tr>
+
+        <tr>
+          <td>Nomor Rekening: {{command.accountno}}</td>
+        </tr>
+      </table>
+      <div class="tombol flex-col" style="padding: 20px">
+        <input
+          class="btn"
+          style="background-color: #8cbcb2"
+          type="submit"
+          name="submit"
+          value="Submit"
+        />
+        <input
+          class="btn"
+          style="background-color: #8cbcb2"
+          type="button"
+          value="Go back!"
+          onclick="history.back()"
+        />
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock content%}

@@ -1,0 +1,137 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+
+{% extends 'base.html' %} {% load static %} {% block meta %} {% endblock meta %}
+{% block content %}
+
+<div class="riwayat-container" style="margin-top: 100px">
+  {%if role == 'Restoran'%}
+  <h1
+    class="text-5xl font-extrabold"
+    style="text-align: center; margin-top: 30px"
+  >
+    Daftar Jam Operasional
+  </h1>
+  <div style="margin-top: 60px; margin-bottom: 30px; text-align: center">
+    <a
+      href="{% url 'sirest:tambah-jam-op' %}"
+      class="button relative px-6 py-3 duration-300 rounded-lg shadow-md text-xl text-white overflow-hidden tracking-wider"
+      style="background-color: #8cbcb2"
+    >
+      Tambah Jam Operasional
+    </a>
+  </div>
+  <table
+    id="op-hours"
+    class="riwayat-table"
+    style="
+      border-collapse: collapse;
+      margin: 25px 0;
+      font-size: 0.9em;
+      font-family: sans-serif;
+      min-width: 600px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    "
+  >
+    <tr style="background-color: #8cbcb2; text-align: center">
+      <th>No</th>
+      <th>Hari</th>
+      <th>Jam Buka</th>
+      <th>Jam Tutup</th>
+      <th>Aksi</th>
+      <th></th>
+    </tr>
+    {%for data in op_hours_dict%}
+    <tr>
+      <th>{{forloop.counter}}</th>
+      <th>{{data.day}}</th>
+      <th>{{data.starthours}}</th>
+      <th>{{data.endhours}}</th>
+      <th>
+        <a href="{% url 'sirest:ubah_jam_op' data.url %} ">Ubah</a>
+        <a href="{% url 'sirest:hapus_jam_op' data.url %} ">Hapus</a>
+      </th>
+    </tr>
+    {%endfor%}
+  </table>
+
+  {%endif%}
+</div>
+
+{% comment %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  $(document).ready(() => {
+    $.get("/api/jam-op/", (hours) => {
+      hours.forEach((hour, index) => {
+        console.log(hour);
+        console.log(hour.starthours);
+
+        $("#op-hours").append(`
+          <tr id="ophours-${index}" class="p-2 text-xl font-semibold">
+            <th>
+              <p>${index + 1} </p>
+            </th>
+              <th>
+                <p>${hour.day} </p>
+              </th>
+              <th>
+                  <p>${hour.starthours}</p>
+            </th>
+            <th>
+                    <p>${hour.endhours}</p>
+          </th>
+          <th>
+            <div>
+              <a
+      href="{% url 'sirest:ubah_jam_op' %}"
+      class="button relative px-6 py-3 duration-300 rounded-lg shadow-md text-m text-white overflow-hidden tracking-wider"
+      style="background-color: #8cbcb2"
+    >
+      Ubah
+    </a>
+            </div>
+          </th>
+          <th>
+            <button id="remove-ophours-${index}" class="flex justify-center items-center w-7 rounded-md bg-indigo-100 hover:bg-indigo-200 shadow-md duration-300">
+              <svg width="16px" height="16px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#4f46e5" d="M14,3 C14.5522847,3 15,3.44771525 15,4 C15,4.55228475 14.5522847,5 14,5 L13.846,5 L13.1420511,14.1534404 C13.0618518,15.1954311 12.1930072,16 11.1479,16 L4.85206,16 C3.80698826,16 2.93809469,15.1953857 2.8579545,14.1533833 L2.154,5 L2,5 C1.44771525,5 1,4.55228475 1,4 C1,3.44771525 1.44771525,3 2,3 L5,3 L5,2 C5,0.945642739 5.81588212,0.0818352903 6.85073825,0.00548576453 L7,0 L9,0 C10.0543573,0 10.9181647,0.815882118 10.9945142,1.85073825 L11,2 L11,3 L14,3 Z M11.84,5 L4.159,5 L4.85206449,14.0000111 L11.1479,14.0000111 L11.84,5 Z M9,2 L7,2 L7,3 L9,3 L9,2 Z"/>
+              </svg>
+            </button>
+
+            <button>
+
+            </button>
+          </th>
+          </tr>
+        `);
+        $(`#remove-ophours-${index}`).click(() => {
+          $.ajax({
+            url: `/api/jam-op/${hour.rname}/${hour.rbranch}/${hour.day}`,
+            type: "DELETE",
+            dataType: "json",
+            success: (resp) => {
+              $(`#ophours-${hour.id}`).remove();
+            },
+            error: (err) => {
+              alert(err);
+            },
+          });
+        });
+      });
+    });
+  });
+</script>
+{% endcomment %}
+
+<script>
+  function openModal() {
+    $("#modalForm").modal("show");
+  }
+</script>
+{% endblock content %}

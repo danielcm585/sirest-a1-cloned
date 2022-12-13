@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+
+<title>PROMO</title>
+
+{% endblock meta %}
+
+{% block content %}
+
+<div class="flex justify-center items-center">
+    <div class="w-fit">
+      <h1 class="mt-60 text-center text-5xl font-extrabold">PROMO</h1>
+      <div class="mt-6 flex justify-center">
+        <a href="{% url 'sirest:promo_minimum_transaksi' %}" class="button relative px-6 py-3  duration-300 rounded-lg shadow-md text-xl text-white overflow-hidden tracking-wider" style="background-color:#8cbcb2;">
+            Promo Minimum Transaksi
+        </a>
+        <a href="{% url 'sirest:promo_hari_spesial' %}" class="button relative ml-4 px-6 py-3 hover:bg-indigo-600 duration-300 rounded-lg shadow-md text-xl text-white overflow-hidden tracking-wider" style="background-color:#8cbcb2;">
+            Promo Hari Spesial
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content%}

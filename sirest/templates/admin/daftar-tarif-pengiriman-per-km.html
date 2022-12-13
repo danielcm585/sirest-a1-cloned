@@ -1,0 +1,63 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+
+{% endblock meta %}
+
+{% block content %}
+
+<div class="riwayat-container" style="margin-top:100px">
+    <!-- nanti ubah ini jadi role == admin -->
+    {%if data.role == 'Admin'%}
+
+    <h1 class= "text-5xl font-extrabold" style="text-align: center; margin-top:30px;"> Daftar Tarif Pengiriman per KM </h1>
+    <table class="riwayat-table" style="border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 600px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;">
+                <tr style="background-color: #8cbcb2;
+                text-align: center;">
+                <th>No</th>
+                <th>Provinsi</th>
+                <th>Biaya Motor</th>
+                <th>Biaya Mobil</th>
+                <th>Aksi</th>
+                </tr>
+                {%for i in tarif_pengiriman%}<tr>
+                    <th>{{forloop.counter}}</th>
+                    <th>{{item.provinsi}}</th>
+                    <th>{{item.biayaMotor}}</th>
+                    <th>{{item.biayaMobil}}</th>
+                    <th class="flex-row">
+                        <a href="/ubah-tarif-pengiriman/{{i.id}}">Ubah</a>
+                        <a href="/hapus-tarif-pengiriman/{{i.id}}">Hapus</a>
+                    </th>
+                </tr>
+                {%endfor%}
+
+                
+    </table>
+
+    {%else%}
+    <h1 class= "text-5xl font-extrabold" style="text-align: center; margin-top:30px;"> Mohon maaf, tidak dapat melihat daftar pengiriman per KM </h1>
+    
+    {%endif%}
+</div>
+
+<script>
+    function openModal(){
+        $('#modalForm').modal('show') 
+    }
+
+
+</script>
+{% endblock content %}
+

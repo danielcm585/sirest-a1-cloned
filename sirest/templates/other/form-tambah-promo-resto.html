@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="nilai-container" style="max-width: 500px; min-height:200px;
+margin: auto;
+background-color: #fff;
+-webkit-box-shadow: 2px 2px 13px -4px rgba(0, 0, 0, 0.21);
+box-shadow: 2px 2px 13px -4px rgba(0, 0, 0, 0.21);
+text-align: center;
+resize: auto;">
+    <div class="header" style="display: flex;
+    justify-content: space-between;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
+    background: #8cbcb2">
+        <h3>FORM PROMO RESTORAN</h3>
+    </div>
+
+    <div class="form-container form-input  flex-wrap flex-row ">
+        <form method="POST" action="" id="newForm">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>Nama Promo: </td>
+                    <td><select onChange="onChange()" name="namaPromoResto" id="namaPromoResto">
+                        {% for item in data.daftar_promo%}
+                            <option value="{{item.nama}}" name="nama_promo" id="nama_promo">{{item.nama}}</option>
+                        {%endfor%}
+                      </select></td>
+                </tr>
+                <tr>
+                    <td>Jenis Promo: </td>
+                    <td id="jenisPromo"></td>
+                </tr>
+                <tr>
+                    <td>Diskon: </td>
+                    <td id="diskon"></td>
+                </tr>
+                <tr>
+                    <td>Tanggal Mulai: </td>
+                    <td><input type="date" name="startPromo"  class="form-control" id="startPromo"></td>
+                </tr>
+                <tr>
+                    <td>Tanggal Berakhir: </td>
+                    <td><input type="date" name="endPromo"  class="form-control" id="endPromo"></td>
+                </tr>
+            </table>
+            <div class="tombol flex-col" style="padding:20px;">
+                <input class="btn" style="background-color:#8cbcb2" type="submit" name="submit" value="Submit"/>
+                <input class="btn" style="background-color:#8cbcb2" type="button" value="Go back!" onclick="history.back()">
+            </div>
+        </form>
+        
+
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+
+    function onChange(){
+        let text = ""
+        selected=$('#namaPromoResto').val()
+        console.log(selected)
+        $.ajax({
+            url: `/get-promo-detail/?namaPromoResto=${selected}`,
+            type: "GET",
+            dataType: "json",
+            success: function(data){
+                console.log(data)
+                $('#jenisPromo').text(data.jenis)
+                $('#diskon').text(data.diskon + "%")
+                
+            },
+            error: function(data){
+                console.log(data)
+            }
+        })
+    }
+
+
+</script>
+{% endblock content%}

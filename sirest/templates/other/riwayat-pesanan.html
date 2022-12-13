@@ -1,0 +1,144 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+
+{% endblock meta %}
+
+{% block content %}
+
+<div class="riwayat-container" style="margin-top:100px">
+    <h1 class= "text-5xl font-extrabold" style="text-align: center; margin-top:30px;"> Riwayat Transaksi Pemesanan </h1>
+    {% if role == 'Admin' %}
+        
+    {% elif data.role == 'Kurir' %}
+    <table class="riwayat-table" style="border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 600px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;">
+        <tr style="background-color: #8cbcb2;
+        text-align: center;">
+        <th>No</th>
+        <th>Restoran - Cabang</th>
+        <th>Nama Pelanggan</th>
+        <th>Waktu Pesanan Dibuat</th>
+        <th>Status Pesanan</th>
+        <th>Aksi</th>
+        </tr>
+        <div id="kurir-riwayat">
+            {%for item in data.transaction_history %}<tr>
+                <th>{{ forloop.counter }}</th>
+                <th>{{item.restaurant_name}}</th>
+                <th>{{item.customer_name}}</th>
+                <th>{{item.datetime}}</th>
+                <th>{{item.transaction_status}}</th>
+                <th class="flex-row"><a href="/riwayat-detail/{{item.rating}}/{{item.datetime}}">Detail</a></th>
+            </tr>
+            {%endfor%}
+        </div>
+
+    </table>
+    {% elif data.role == 'Restoran'%}
+        <table class="riwayat-table" style="border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 600px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;">
+            <tr style="background-color: #8cbcb2;
+            text-align: center;">
+            <th>No</th>
+            <th>Nama Pelanggan</th>
+            <th>Nama Kurir</th>
+            <th>Waktu Pesanan Dibuat</th>
+            <th>Status Pesanan</th>
+            <th>Aksi</th>
+            </tr>
+            
+            {%for item in data.transaction_history%}<tr>
+                <th>{{forloop.counter}}</th>
+                <th>{{item.nama_pembeli}}</th>
+                <th>{{item.courier_name}}</th>
+                <th>{{item.datetime}}</th>
+                <th>{{item.status}}</th>
+                <th class="flex-row"><a href="/riwayat-detail/{{item.email}}/{{item.datetime}}">Detail</a></th>
+            </tr>
+            {%endfor%}
+        </table>
+    {% elif data.role == 'Pelanggan' %}
+        <table class="riwayat-table" style="border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 600px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;">
+            <tr style="background-color: #8cbcb2;
+            text-align: center;">
+            <th>No</th>
+            <th>Restoran</th>
+            <th>Nama Kurir</th>
+            <th>Waktu Pesanan Dibuat</th>
+            <th>Status Pesanan</th>
+            <th style="min-width:70px;">Rating</th>
+            <th>Aksi</th>
+            </tr>
+            {%for item in data.transaction_history%}
+            <tr>
+                <th>{{ forloop.counter }}</th>
+                <th>{{item.restaurant_name}}</th>
+                <th>{{item.courier_name}}</th>
+                <th>{{item.datetime}}</th>
+                <th>{{item.transaction_status}}</th>
+                <th>{{item.rating}}</th>
+                <th class="flex-row"><a href='/riwayat-detail/{{item.email}}/{{item.datetime}}'>Detail</a> 
+                    {% if item.sudah_dinilai == False%}
+                        <a href = '/form-nilai/{{item.email}}/{{item.datetime}}'> Nilai </a>
+                    {%endif%}
+                </th>
+            </tr>
+            {%endfor%}
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            <script>
+                $(document).ready(() => {
+                    {%for item in data.transaction_history%}
+                        $('#item-{{forloop.counter}}').click(() => {
+                            alert('WOY')
+                            console.log('HERE')
+                            console.log('{{item.datetime}}')
+                            const strDate = '{{item.datetime}}'.strftime("%Y-%m-%d %H:%M:%S")
+                            {% comment %} const strDate = '{{item.datetime}}'.replace('p.m.','pm').replace('a.m.','am') {% endcomment %}
+                            {% comment %} const isoDate = new Date(strDate).toISOString().replace('T', ' ').split('.')[0] {% endcomment %}
+                            console.log(isoDate)
+                            location.href = `/form-nilai/{{item.email}}/${isoDate}/`
+                        })
+                    {%endfor%}
+                })
+                {% comment %} const test = document.getElementById("item-{{forloop.counter}}")
+                test.addEventListener('click', () => {
+                }) {% endcomment %}
+                
+            </script>
+        </table>
+    {%else%}
+
+    {% endif %}
+  
+</div>
+
+
+
+{% endblock content %}
+

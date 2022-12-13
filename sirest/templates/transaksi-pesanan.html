@@ -1,0 +1,64 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+
+{% extends 'base.html' %} {% load static %} {% block meta %} {% endblock meta %}
+{% block content %}
+
+<div class="riwayat-container" style="margin-top: 100px">
+  <h1
+    class="text-5xl font-extrabold"
+    style="text-align: center; margin-top: 30px"
+  >
+    Transaksi Pesanan
+  </h1>
+
+  <table
+    class="riwayat-table"
+    style="
+      border-collapse: collapse;
+      margin: 25px 0;
+      font-size: 0.9em;
+      font-family: sans-serif;
+      min-width: 600px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    "
+  >
+    <tr style="background-color: #8cbcb2; text-align: center">
+      <th>No</th>
+
+      <th>Nama Pelanggan</th>
+      <th>Waktu Pesanan Dibuat</th>
+      <th>Status Pesanan</th>
+      <th>Aksi</th>
+    </tr>
+    <tr>
+      {% for data in transaction_dict%}
+      <th>{{forloop.counter}}</th>
+      <th>{{data.name}}</th>
+      <th>{{data.datetime}}</th>
+
+      <th>{{data.status}}</th>
+      <th class="flex-row">
+        <a href="{% url 'sirest:detail_transaksi_pesanan' data.email data.datetime %}">Detail</a>
+        {% if data.status == 'Menunggu konfirmasi restoran'%}
+        <a href = "{% url 'sirest:action' data.email data.datetime %}">Konfirmasi</a>
+        {% elif data.status == 'Pesanan sedang dipersiapkan'%}
+        <a href = "{% url 'sirest:action' data.email data.datetime %}" >Kirim<a>
+        {%endif%}
+      </th>
+    </tr>
+    {%endfor%}
+  </table>
+</div>
+
+<script>
+  function openModal() {
+    $("#modalForm").modal("show");
+  }
+</script>
+{% endblock content %}

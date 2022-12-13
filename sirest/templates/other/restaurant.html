@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="flex justify-center">
+  <div class="w-11/12">
+    <h1 class="text-3xl font-bold text-indigo-600">
+      Restoran
+    </h1>
+    <div class="mt-6">
+      <ul id="restaurants" class="divide-y divide-solid" >
+        
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="text-md items-center"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  $(document).ready(() => {
+    $.get('/api/restaurant/', (restaurants) => {
+      restaurants.forEach((restaurant) => {
+        $('#restaurants').append(`
+          <li id="restaurant-${restaurant.id}" class="p-2 text-xl font-semibold hover:bg-gray-100">
+            <h1 class="text-lg">
+              ${restaurant.rname} - ${restaurant.rbranch}
+            </h1>
+            <p class="text-sm text-gray-400">
+              ${restaurant.street}, ${restaurant.district}, ${restaurant.city}, ${restaurant.province}
+            </p>
+            <div class="flex items-center">
+              <img src="{% static 'svg/star.svg' %}" class="w-4 h-4" />
+              <p class="ml-1 mt-[2px] text-sm">
+                ${restaurant.rating}
+              </p>
+            </div>
+          </li>
+        `)
+        $(`#restaurant-${restaurant.id}`).click(() => {
+          location.href=`/restaurant/${restaurant.id}`
+        })
+      })
+    })
+  })
+</script>
+
+{% endblock content %}
