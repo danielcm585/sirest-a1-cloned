@@ -469,7 +469,7 @@
           <th>${actor.email}</th>
           <th>${actor.nama}</th>
           <th>${actor.role}</th>
-          <th>Terverifikasi</th>
+          <th>${actor.adminid == null ? "Pending" : "Terverifikasi"}</th>
           <th class="flex-row">
             <a href="{% url 'sirest:detail_user' %}">Detail</a>
             <a>Verifikasi</a>
