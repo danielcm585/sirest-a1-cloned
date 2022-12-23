@@ -28,6 +28,10 @@ urlpatterns = [
 
     path('api/login/', login_api, name='login_api'),
     path('api/logout/', logout_api, name='logout_api'),
+    path('api/register/pelanggan/', register_customer_api, name='register_customer_api'),
+    path('api/register/admin/', register_admin_api, name='register_admin_api'),
+    path('api/register/restoran/', register_restaurant_api, name='register_restaurant_api'),
+    path('api/register/kurir/', register_courier_api, name='register_courier_api'),
 
     # Food Category
     path('food-category/', food_category, name='food_category'),

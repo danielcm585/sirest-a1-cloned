@@ -1,6 +1,7 @@
 {% extends 'base.html' %} {% load static %} {% block meta %} {% endblock meta %}
 {% block content %}
 
+
 <div class="mt-6 flex justify-center items-center">
   <div class="flex">
     <button
@@ -33,37 +34,57 @@
     </button>
   </div>
 </div>
-<div class="mt-6 flex justify-center items-center">
-  <div class="w-96 shadow-lg p-6 rounded-lg">
-    <h1 class="text-5xl font-extrabold">Register</h1>
-    <p class="mt-6 text-xl">Email</p>
-    <input type="text" name="email" class="w-full rounded-lg" />
-    <p class="mt-4 text-xl">Password</p>
-    <input type="password" name="password" class="w-full rounded-lg" />
-    <p class="mt-4 text-xl">Nama</p>
-    <input type="text" name="name" class="w-full rounded-lg" />
-    <p class="mt-4 text-xl">Nomor HP</p>
-    <input type="text" name="phonenum" class="w-full rounded-lg" />
-    <div id="other-input"></div>
-    <p class="mt-4">
-      Already registered?
-      <a href="/login/" class="font-bold text-indigo-500">Login</a>
-    </p>
-    <button
-      onclick="setTimeout(() => location.href='/login/', 300)"
-      class="relative w-full mt-4 py-2 bg-indigo-500 hover:bg-indigo-600 duration-300 rounded-lg shadow-md text-xl text-white overflow-hidden tracking-wider"
-    >
-      Register
-    </button>
+<form id="register-form">
+  {% csrf_token %}
+  <div class="mt-6 flex justify-center items-center">
+    <div class="w-96 shadow-lg p-6 rounded-lg">
+      <h1 class="text-5xl font-extrabold">Register</h1>
+      <p class="mt-6 text-xl">Email</p>
+      <input type="text" name="email" class="w-full rounded-lg" />
+      <p class="mt-4 text-xl">Password</p>
+      <input type="password" name="password" class="w-full rounded-lg" />
+      <p class="mt-4 text-xl">Nama</p>
+      <input type="text" name="name" class="w-full rounded-lg" />
+      <p class="mt-4 text-xl">Nomor HP</p>
+      <input type="text" name="phonenum" class="w-full rounded-lg" />
+      <div id="other-input"></div>
+      <p class="mt-4">
+        Already registered?
+        <a href="/login/" class="font-bold text-indigo-500">Login</a>
+      </p>
+      <button type="submit"
+        class="relative w-full mt-4 py-2 bg-indigo-500 hover:bg-indigo-600 duration-300 rounded-lg shadow-md text-xl text-white overflow-hidden tracking-wider"
+      >
+        Register
+      </button>
+    </div>
   </div>
-</div>
+</form>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
   $(document).ready(() => {
+    let curRole = 'admin'
+    $('#register-form').submit(() => {
+      $.ajax({
+        url: `/api/register/${curRole}/`,
+        type: 'POST',
+        dataType: 'json',
+        data: $('#register-form').serialize(),
+        success: (resp) => {
+          location.href = '/login/'
+        },
+        error: (err) => {
+          console.log(err)
+          alert(err.message)
+        }
+      })
+    })
+
     const roles = ["admin", "pelanggan", "restoran", "kurir"];
     roles.forEach((role) => {
       $(`#${role}-button`).click(() => {
+        curRole = role
         $("#other-input").html("");
         if (role != "admin") {
           $("#other-input").append(`
