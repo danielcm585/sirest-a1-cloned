@@ -28,6 +28,7 @@ urlpatterns = [
 
     path('api/login/', login_api, name='login_api'),
     path('api/logout/', logout_api, name='logout_api'),
+    path('api/verify/<str:id>/', verify_user_api, name='verify_user_api'),
     path('api/register/pelanggan/', register_customer_api, name='register_customer_api'),
     path('api/register/admin/', register_admin_api, name='register_admin_api'),
     path('api/register/restoran/', register_restaurant_api, name='register_restaurant_api'),

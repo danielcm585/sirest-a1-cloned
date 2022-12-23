@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
@@ -126,5 +127,13 @@ def daftar_aktor_transaksi_api(request):
         ''')
         json = [ TransactionActor(row).json() for row in rows ]
         return JsonResponse(json, safe=False, status=200)
+
+    if (request.method == 'GET'): return get()
+
+def verify_user_api(request, id):
+    email = request.COOKIES.get('email')
+    def get():
+        execute_sql(f"update transaction_actor set adminid='{email}' where email='{id}'")
+        return HttpResponseRedirect('/dashboard/')
 
     if (request.method == 'GET'): return get()

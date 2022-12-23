@@ -463,20 +463,20 @@
 
     $.get('/api/dashboard/admin', (trActors) => {
       trActors.forEach((actor) => {
-        console.log(actor)
         $('#riwayat-table-admin').append(`
-        <tr>
-          <th>${actor.email}</th>
-          <th>${actor.nama}</th>
-          <th>${actor.role}</th>
-          <th>${actor.adminid == null ? "Pending" : "Terverifikasi"}</th>
-          <th class="flex-row">
-            <a href="{% url 'sirest:detail_user' %}">Detail</a>
-            <a>Verifikasi</a>
-          </th>
-          <th class="flex-row"><a>Verifikasi</a> <a></a></th>
-        </tr>
-        `)});})
+          <tr>
+            <th>${actor.email}</th>
+            <th>${actor.nama}</th>
+            <th>${actor.role}</th>
+            <th>${actor.adminid == null ? "Pending" : "Terverifikasi"}</th>
+            <th class="flex-row">
+              <a href="{% url 'sirest:detail_user' %}">Detail</a>
+              <a href='/api/verify/${actor.email}/'>Verifikasi</a>
+            </th>
+          </tr>
+        `)
+      })
+    })
   });
 </script>
 
